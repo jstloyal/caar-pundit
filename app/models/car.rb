@@ -8,6 +8,6 @@ class Car < ApplicationRecord
   end
 
   def average_score
-    reviews.average(:score).round(2)\.to_f
+    reviews.average(:score).round(2).to_f
   end
 end
