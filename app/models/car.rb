@@ -4,7 +4,7 @@ class Car < ApplicationRecord
   before_create :slugify
 
   def slugify
-    self.slug = name.parameterize
+    self.slug = model.parameterize
   end
 
   def average_score
