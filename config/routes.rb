@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :cars, param: :slug
-      resources :reviews, only: [:create, :destroy]
+      resources :reviews, only: %i[create destroy]
     end
   end
 

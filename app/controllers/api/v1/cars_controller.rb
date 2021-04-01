@@ -1,10 +1,13 @@
 module Api
   module V1
     class CarsController < ApplicationController
+      protect_from_forgery with: :null_session
+      
+      # GET /api/v1/cars
       def index
         cars = Car.all
 
-        CarSerializer.new(cars, options).serializable_hash
+        render json: CarSerializer.new(cars, options).serializable_hash
       end
 
       def show
