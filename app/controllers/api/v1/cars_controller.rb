@@ -49,7 +49,7 @@ module Api
       private
 
       def car_params
-        params.require(:car).permit(:name, :model, :image_url)
+        params.require(:car).permit(:name, :year, :image_url)
       end
 
       def options
