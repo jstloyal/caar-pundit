@@ -59,9 +59,17 @@ function Car(props) {
     const car_id = car.data.id;
     axios.post('/api/v1/reviews', {review, car_id})
     .then(response => {
-      debugger
+      const included = [ ...car.included, respponse.data.data];
+      setCar({...car, included});
+      setReview({title: '', description: '', score: 0});
     })
     .catch(response => {})
+  }
+
+  const setRating = (score, e) => {
+    e.preventDefault();
+
+    setReview({...review, score})
   }
 
   return (
@@ -84,6 +92,7 @@ function Car(props) {
               handleSubmit={handleSubmit}
               attributes={car.data.attributes}
               review={review}
+              setRating={setRating}
             />
           </Column>
         </Fragment>
