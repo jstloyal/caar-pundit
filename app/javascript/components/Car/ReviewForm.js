@@ -9,7 +9,6 @@ const RatingContainer = styled.div`
   border: 1px solid #e6e6e6;
   background: #fff;
   padding: 20px;
-  width: 92%;
 `
 
 const RatingBox = styled.div`
@@ -76,26 +75,6 @@ const Wrapper = styled.div`
   padding-top: 100px;
 `
 
-const SubmitBtn = styled.div`
-  color: #fff;
-  background: #333;
-  border-radius: 4px;
-  padding: 12px;
-  text-align: center;
-  font-size: 18px;
-  cursor: pointer;
-  transition: ease-in-out 0.1s;
-  border: 1px solid #fff;
-  width: 96%;
-  margin-top: 20px;
-
-  &:hover {
-    background: #fff;
-    color: #000;
-    border: 1px solid #000;
-  }
-`
-
 const Headline = styled.div`
   padding: 20px;
   font-size: 27px;
@@ -109,11 +88,11 @@ const RatingTitle = styled.div`
   font-weight: bold;
 `
 
-function ReviewForm(props) {
+const ReviewForm = (props) => {
   const retingOptions = [5,4,3,2,1].map((score, index) => {
     return(
-      <Fragment>
-        <input type='radio' value={score} checked={props.review.score == score} name='rating' onChange={() => console.log('selected:', score)} id={`rating-${score}`} />
+      <Fragment key={index}>
+        <input type="radio" value={score} checked={props.review.score == score} name="rating" onChange={()=>console.log("onChange")} id={`rating-${score}`} />
         <label onClick={props.setRating.bind(this, score)}></label>
       </Fragment>
     )
@@ -143,13 +122,14 @@ function ReviewForm(props) {
         </Field>
         <Field>
           <RatingContainer>
-            <RatingTitle className='rating-title-text'> Rate this Car</RatingTitle>
+            <RatingTitle> Rate this Car</RatingTitle>
             <RatingBox>
               {retingOptions}
             </RatingBox>
           </RatingContainer>
         </Field>
-        <SubmitBtn type='submit'>Submit your review</SubmitBtn>
+        <button className="review-button" type="Submit" >Create Review</button>
+        
       </form>
     </Wrapper>
   )

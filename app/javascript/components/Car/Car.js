@@ -25,7 +25,7 @@ const Main = styled.div`
   padding-left: 50px;
 `
 
-function Car(props) {
+const Car = (props) => {
   const [car, setCar] = useState({});
   const [review, setReview] = useState({});
   const [loaded, setLoaded] = useState(false);
@@ -37,9 +37,10 @@ function Car(props) {
     axios.get(url)
     .then(response => {
       setCar(response.data)
+      setReview(response.data.included)
       setLoaded(true)
     })
-    .catch(response => console.log(response))
+    .catch(data => console.log('Error', data))
   }, []);
 
   const handleChange = e => {
@@ -52,18 +53,19 @@ function Car(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
+    console.log("Submit button clicked!")
 
-    const csrfToken = document.querySelector('[name=csrf-token').content
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+    const csrfToken = document.querySelector('[name=csrf-token]').content
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
 
     const car_id = car.data.id;
-    axios.post('/api/v1/reviews', {review, car_id})
-    .then(response => {
-      const included = [ ...car.included, respponse.data.data];
+    axios.post('/api/v1/reviews', { review, car_id })
+    .then(resp => {
+      const included = [...car.included, resp.data.data];
       setCar({...car, included});
       setReview({title: '', description: '', score: 0});
     })
-    .catch(response => {})
+    .catch(resp => {})
   }
 
   const setRating = (score, e) => {
