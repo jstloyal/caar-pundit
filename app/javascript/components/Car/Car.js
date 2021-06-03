@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from './Header';
 import styled from 'styled-components';
 import ReviewForm from './ReviewForm';
+import Review from './Review';
 
 const Wrapper = styled.div`
   margin-left: auto;
@@ -17,7 +18,7 @@ const Column = styled.div`
   overfloat: scroll;
 
   &:last-child {
-    background: #000;
+    background: #d3d3d3;
   }
 `
 
@@ -53,7 +54,6 @@ const Car = (props) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log("Submit button clicked!")
 
     const csrfToken = document.querySelector('[name=csrf-token]').content
     axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
@@ -74,6 +74,18 @@ const Car = (props) => {
     setReview({...review, score})
   }
 
+  let reviews
+  if (loaded && car.included) {
+    reviews = car.included.map((item, index) => {
+      return (
+        <Review
+          key={index}
+          attributes={item.attributes}
+        />
+      )
+    })
+  }
+
   return (
     <Wrapper>
       {
@@ -85,7 +97,7 @@ const Car = (props) => {
                 attributes={car.data.attributes}
                 reviews={car.included}
               />
-              <div className='reviews'></div>
+              {reviews}
             </Main>
           </Column>
           <Column>

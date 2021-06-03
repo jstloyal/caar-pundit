@@ -68,9 +68,8 @@ const Field = styled.div`
 `
 
 const Wrapper = styled.div`
-  background: #fff;
   padding: 20px;
-  background: #000;
+  background: #a9a9a9;
   height: 100vh;
   padding-top: 100px;
 `
